@@ -11,10 +11,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UiTests</RootNamespace>
     <AssemblyName>UiTests</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -80,6 +81,10 @@
     <Analyzer Include="..\packages\xunit.analyzers.0.7.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FriendStorage.Model\FriendStorage.Model.csproj">
+      <Project>{67eb7c6d-721a-4c84-991d-594bd263a0ed}</Project>
+      <Name>FriendStorage.Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FriendStorage.UI\FriendStorage.UI.csproj">
       <Project>{d32d4e43-79ca-4fd3-b920-13957f9060e7}</Project>
       <Name>FriendStorage.UI</Name>
