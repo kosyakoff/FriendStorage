@@ -1,6 +1,4 @@
 ﻿using System.Windows;
-using FriendStorage.DataAccess;
-using FriendStorage.UI.DataProviders;
 using FriendStorage.UI.ViewModel;
 
 namespace FriendStorage.UI.View
@@ -9,13 +7,11 @@ namespace FriendStorage.UI.View
     {
         private readonly MainViewModel _mainVieViewModel;
 
-        public MainWindow()
+        public MainWindow(MainViewModel mainViewModel)
         {
             InitializeComponent();
 
-            _mainVieViewModel = new MainViewModel(
-                new NavigationViewModel(
-                    new NavigationDataProvider(() => new FileDataService())));
+            _mainVieViewModel = mainViewModel;
 
             DataContext = _mainVieViewModel;
             Loaded += HandleOnMainWindowLoaded;
