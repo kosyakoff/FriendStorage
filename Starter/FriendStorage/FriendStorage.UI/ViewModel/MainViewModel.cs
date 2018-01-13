@@ -2,9 +2,9 @@
 {
     public class MainViewModel : ViewModelBase
     {
-        public NavigationViewModel NavigationViewModel { get; set; }
+        public INavigationViewModel NavigationViewModel { get; set; }
 
-        public MainViewModel(NavigationViewModel navigationViewModel)
+        public MainViewModel(INavigationViewModel navigationViewModel)
         {
             NavigationViewModel = navigationViewModel;
         }

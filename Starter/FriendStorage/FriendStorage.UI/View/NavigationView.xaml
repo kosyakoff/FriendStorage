@@ -12,10 +12,9 @@
         <ItemsControl Foreground="White" ItemsSource="{Binding Friends}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Button Command="{Binding OpenFriendEditViewCommand}" Style="{StaticResource NavigationButtonStyle}">
-                        <TextBlock>
-                            <Run Text="{Binding FirstName}" /> <Run Text="{Binding LastName}" />
-                        </TextBlock>
+                    <Button Command="{Binding OpenFriendEditViewCommand}"
+                            Style="{StaticResource NavigationButtonStyle}">
+                        <TextBlock Text="{Binding Path=DisplayMember}" />
                     </Button>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

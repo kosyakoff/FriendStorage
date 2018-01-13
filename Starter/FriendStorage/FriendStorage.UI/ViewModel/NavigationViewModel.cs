@@ -1,19 +1,15 @@
 ﻿using System.Collections.ObjectModel;
-using FriendStorage.DataAccess;
 using FriendStorage.Model;
+using FriendStorage.UI.DataProviders;
 
 namespace FriendStorage.UI.ViewModel
 {
-    public class NavigationViewModel : ViewModelBase
+    public class NavigationViewModel : ViewModelBase, INavigationViewModel
     {
-        private ObservableCollection<Friend> _friends;
+        private readonly INavigationDataProvider _dataProvider;
+        private ObservableCollection<LookupItem> _friends;
 
-        public NavigationViewModel()
-        {
-            Friends = new ObservableCollection<Friend>();
-        }
-
-        public ObservableCollection<Friend> Friends
+        public ObservableCollection<LookupItem> Friends
         {
             get { return _friends; }
             private set
@@ -23,11 +19,16 @@ namespace FriendStorage.UI.ViewModel
             }
         }
 
+        public NavigationViewModel(INavigationDataProvider dataProvider)
+        {
+            _friends = new ObservableCollection<LookupItem>();
+            _dataProvider = dataProvider;
+        }
+
         public void LoadFriends()
         {
-            var dataService = new FileDataService();
             Friends.Clear();
-            foreach (Friend friend in dataService.GetAllFriends())
+            foreach (var friend in _dataProvider.GetAllFriends())
             {
                 Friends.Add(friend);
             }
