@@ -1,32 +1,30 @@
 ﻿using FriendStorage.UI.ViewModel;
+using Moq;
 using Xunit;
 
 namespace UiTests.Viewmodel
 {
-    public class NavigationViewModelMock : INavigationViewModel
-    {
-        public bool LoadFriendsHasBeenCalled { get; set; }
-
-        public void LoadFriends()
-        {
-            LoadFriendsHasBeenCalled = true;
-        }
-    }
-
     public class MainViewModelTests
     {
+        public MainViewModelTests()
+        {
+            _navigationViewModelMock = new Mock<INavigationViewModel>();
+        }
+
+        private readonly Mock<INavigationViewModel> _navigationViewModelMock;
+
         [Fact]
         public void ShouldCallLoadMethodOfNavigationViewModel()
         {
             //Arrange
-            var navigationViewModel = new NavigationViewModelMock();
-            var viewModel = new MainViewModel(navigationViewModel);
+            var mainViewModel = new MainViewModel(_navigationViewModelMock.Object);
 
             //Act
-            viewModel.LoadFriends();
+            mainViewModel.LoadFriends();
 
             //Assert
-            Assert.True(navigationViewModel.LoadFriendsHasBeenCalled);
+            _navigationViewModelMock.Verify(model => model.LoadFriends(),
+                Times.Once);
         }
     }
 }

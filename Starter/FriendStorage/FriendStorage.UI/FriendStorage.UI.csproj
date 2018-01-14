@@ -40,6 +40,10 @@
       <HintPath>..\packages\Autofac.4.6.2\lib\net45\Autofac.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Prism, Version=7.0.0.362, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Core.7.0.0.362\lib\net45\Prism.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -66,10 +70,12 @@
     </ApplicationDefinition>
     <Compile Include="DataProviders\INavigationDataProvider.cs" />
     <Compile Include="DataProviders\NavigationDataProvider.cs" />
+    <Compile Include="Events\OpenFriendEditViewEvent.cs" />
     <Compile Include="Startup\BootsStrapper.cs" />
     <Compile Include="ViewModel\FriendEditViewModel.cs" />
-    <Compile Include="ViewModel\Interface1.cs" />
+    <Compile Include="ViewModel\INavigationViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\NavigationItemViewModel.cs" />
     <Compile Include="ViewModel\NavigationViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="View\FriendEditView.xaml.cs">

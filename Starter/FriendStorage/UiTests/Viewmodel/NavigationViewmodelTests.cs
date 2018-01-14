@@ -3,35 +3,42 @@ using System.Linq;
 using FriendStorage.Model;
 using FriendStorage.UI.DataProviders;
 using FriendStorage.UI.ViewModel;
+using Moq;
+using Prism.Events;
 using Xunit;
 
 namespace UiTests.Viewmodel
 {
-    public class NavigationDataProviderMock : INavigationDataProvider
-    {
-        public IEnumerable<LookupItem> GetAllFriends()
-        {
-            yield return new LookupItem {Id = 1, DisplayMember = "Julia"};
-            yield return new LookupItem {Id = 2, DisplayMember = "Fedor"};
-        }
-    }
-
     public class NavigationViewmodelTests
     {
+        public NavigationViewmodelTests()
+        {
+            var navigationDataProviderMock = new Mock<INavigationDataProvider>();
+            navigationDataProviderMock.Setup(provider => provider.GetAllFriends()).Returns(
+                new List<LookupItem>
+                {
+                    new LookupItem {Id = 1, DisplayMember = "Julia"},
+                    new LookupItem {Id = 2, DisplayMember = "Fedor"}
+                }
+            );
+            var eventAggregatorMock = new Mock<IEventAggregator>();
+
+            _navigationViewModel = new NavigationViewModel(navigationDataProviderMock.Object, eventAggregatorMock.Object);
+        }
+
+        private readonly NavigationViewModel _navigationViewModel;
+
         [Fact]
         public void ShouldLoadFriends()
         {
-            //Arrange
-            var navigationViewModel = new NavigationViewModel(new NavigationDataProviderMock());
-
             //Act
-            navigationViewModel.LoadFriends();
+            _navigationViewModel.LoadFriends();
 
-            var firstFriend = navigationViewModel.Friends.FirstOrDefault(friend => friend.Id == 1);
-            var secondFriend = navigationViewModel.Friends.FirstOrDefault(friend => friend.Id == 2);
+            var firstFriend = _navigationViewModel.Friends.FirstOrDefault(friend => friend.Id == 1);
+            var secondFriend = _navigationViewModel.Friends.FirstOrDefault(friend => friend.Id == 2);
 
             //Assert
-            Assert.Equal(2, navigationViewModel.Friends.Count);
+            Assert.Equal(2, _navigationViewModel.Friends.Count);
 
             Assert.NotNull(firstFriend);
             Assert.Equal("Julia", firstFriend.DisplayMember);
@@ -44,14 +51,13 @@ namespace UiTests.Viewmodel
         public void ShouldLoadFriendsOnlyOnce()
         {
             //Arrange
-            var navigationViewModel = new NavigationViewModel(new NavigationDataProviderMock());
 
             //Act
-            navigationViewModel.LoadFriends();
-            navigationViewModel.LoadFriends();
+            _navigationViewModel.LoadFriends();
+            _navigationViewModel.LoadFriends();
 
             //Assert
-            Assert.Equal(2, navigationViewModel.Friends.Count);
+            Assert.Equal(2, _navigationViewModel.Friends.Count);
         }
     }
 }

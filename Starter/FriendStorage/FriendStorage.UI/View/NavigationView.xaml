@@ -12,8 +12,7 @@
         <ItemsControl Foreground="White" ItemsSource="{Binding Friends}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Button Command="{Binding OpenFriendEditViewCommand}"
-                            Style="{StaticResource NavigationButtonStyle}">
+                    <Button Command="{Binding OpenFriendEditViewCommand}" Style="{StaticResource NavigationButtonStyle}">
                         <TextBlock Text="{Binding Path=DisplayMember}" />
                     </Button>
                 </DataTemplate>
